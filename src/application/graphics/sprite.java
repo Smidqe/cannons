@@ -1,11 +1,15 @@
 package application.graphics;
 
+import application.types.TFile;
+
+
 import application.types.TPoint;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class sprite {	
 	private Image img;
+	private TFile source;
 	private TPoint p;
 	private GraphicsContext gc;
 	
@@ -21,8 +25,12 @@ public class sprite {
 		this.gc = gc;
 	}
 	
-	public boolean change(String path)
+	public boolean set(String path)
 	{
+		if (source.getPath().equals(path))
+			return false;
+		
+		
 		return true;
 	}
 	
@@ -43,8 +51,5 @@ public class sprite {
 			this.draw();
 			return;
 		}
-		
-		
-		
 	}
 }
