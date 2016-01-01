@@ -7,7 +7,7 @@ public class TPoint extends Point {
 
 	@Override
 	public String toString(){
-		return new String("P: (" + this.x + ", " + this.y + ")\n");
+		return new String("Point: (" + this.x + ", " + this.y + ")\n");
 	}
 
 	public void print()
@@ -24,6 +24,12 @@ public class TPoint extends Point {
 		this.y = Y;
 	}
 
+
+	public boolean equals(TPoint p)
+	{
+		return (this.x == p.x && this.y == p.y);
+	}
+	
 	public void offset(int X, int Y){
 		this.x += X;
 		this.y += Y;
@@ -46,7 +52,7 @@ public class TPoint extends Point {
 		double r = ((Math.atan2((p.y - this.y), (p.x - this.x)) * (180.0 / Math.PI)) + 90.0);
 	  	
 		if (r < 0.0)
-	  		r = (r + 360.0);
+	  		r += 360.0;
 	  	
 	  	return r;
 	}

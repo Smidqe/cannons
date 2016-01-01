@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 @SuppressWarnings("unused")
 public class TFile extends File{
@@ -24,6 +25,8 @@ public class TFile extends File{
 		
 		this.name = getName();
 		this.type = type();
+		
+		set_method(!read);
 	}
 	
 	public void set_method(boolean write)
@@ -40,6 +43,37 @@ public class TFile extends File{
 			this.read = true;
 		}
 	}
+	
+	public OutputStream output()
+	{
+		return __writer;
+	}
+	
+	public InputStream input()
+	{
+		return __reader;
+	}
+	
+	public boolean write(String s, boolean append)
+	{
+		if (!this.write || !this.open)
+			return false;
+		
+		OutputStreamWriter w = new OutputStreamWriter(__writer);
+		try {
+			
+			if (append)
+				w.append(s);
+			else
+				w.write(s);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
 	public String type()
 	{
 		return "";
@@ -78,6 +112,8 @@ public class TFile extends File{
 		else
 			this.__reader = new FileInputStream(this.path);
 		
-		return true;
+		set_method(this.write);
+		
+		return this.open = isOpen();
 	}
 }

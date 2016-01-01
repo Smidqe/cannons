@@ -149,4 +149,21 @@ public class TBox {
 	public int getY2() {
 		return y2;
 	}
+
+	public void setX1(int i) {
+		// TODO Auto-generated method stub
+		this.x1 = i;
+	}
+	public void setX2(int i) {
+		// TODO Auto-generated method stub
+		this.x2 = i;
+	}
+	public void setY1(int i) {
+		// TODO Auto-generated method stub
+		this.y1 = i;
+	}
+	public void setY2(int i) {
+		// TODO Auto-generated method stub
+		this.y2 = i;
+	}
 }

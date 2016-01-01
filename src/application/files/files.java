@@ -18,6 +18,11 @@ public class files {
 		return instance;
 	}
 	
+	public ArrayList<TFile> getList()
+	{
+		return __files;
+	}
+	
 	public ArrayList<TFile> getOpen()
 	{
 		if (__files.size() == 0)
