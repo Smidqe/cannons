@@ -1,11 +1,13 @@
 package application.graphics.cannon;
 
 import application.graphics.graphics;
+import application.graphics.sprite;
 
 @SuppressWarnings("unused")
 public class barrel extends graphics{
 	private double px, py;
 	private boolean created;
+	private sprite __sprite;
 
 	public barrel(double x, double y)
 	{

@@ -134,6 +134,16 @@ public class TBox {
 		this.edit(-size, -size, size, size);
 	}
 
+	public boolean touches(TBox b)
+	{
+		return (this.x1 == b.x2 || this.y1 == b.y2 || this.x2 == b.x1 || this.y2 == b.y1);
+	}
+	
+	public boolean overlap(TBox b) 
+	{
+		return  (!((this.x1 > b.x2) || (this.x2 < b.x1) || (this.y1 > b.y2) || (this.y2 < b.y1)));
+	}
+	
 	public int getX1() {
 		return x1;
 	}
@@ -166,4 +176,6 @@ public class TBox {
 		// TODO Auto-generated method stub
 		this.y2 = i;
 	}
+
+
 }

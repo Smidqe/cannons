@@ -3,32 +3,58 @@ package application.graphics;
 import javafx.scene.canvas.*;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
+
 import application.types.*;
+import application.misc.utils;
 
 @SuppressWarnings("unused")
 public class graphics extends Canvas{
-	private GraphicsContext __gh; 
-	private layer __layer;
+	public enum LAYER {BACKGROUND, GROUND, BARRELS, TURRETS};
+	
+	private ArrayList<layer> layers;
 	
 	protected graphics()
 	{
 		super();
-		__gh = super.getGraphicsContext2D();
-	//	__layer.layer(0);
+		
+		layers = new ArrayList<layer>();
 	}
 
+	public layer layer(int index)
+	{
+		if (!utils.inRange(index, 0, layers.size()))
+			return null;
+		
+		return layers.get(index);
+	}
+
+	public GraphicsContext graphics_context(int index)
+	{
+		if (!utils.inRange(index, 0, layers.size()))
+			return null;
+		
+		return layer(index).getGraphicsContext2D();
+	}
+	
 	public void background()
 	{
-	//	__gh = __layer.current().getGraphicsContext2D();
-		__gh.setStroke(Color.LIGHTGREY);
-		__gh.rect(0, 0, getWidth(), getHeight());
+		graphics_context(0).setStroke(Color.LIGHTGREY);
+		graphics_context(0).rect(0, 0, getWidth(), getHeight());
 	}
 	public void draw(int t) {
 		// TODO Auto-generated method stub
 	}
 	
-	public void draw_image(double x, double y)
+	public void add_layer()
 	{
-		__gh.drawImage(new Image(""), x, y);
+		layers.add(new layer());
+	}
+	
+	public void add_layer(int num)
+	{
+		for (int i = 0; i < num; i++)
+			add_layer();
 	}
 }

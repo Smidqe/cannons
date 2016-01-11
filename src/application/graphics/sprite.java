@@ -6,12 +6,14 @@ import application.types.TPoint;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.transform.Rotate;
 
 public class sprite {	
 	private Image img;
 	private TFile source;
 	private TPoint p;
 	private GraphicsContext gc;
+	private String name;
 	private double angle;
 	
 	public sprite()
@@ -29,6 +31,16 @@ public class sprite {
 	public void setImage(Image img)
 	{
 		this.img = img;
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
+	public String getName()
+	{
+		return this.name;
 	}
 	
 	public void load()
@@ -64,6 +76,16 @@ public class sprite {
 		return new TBox((int) this.img.getWidth(), (int) this.img.getHeight());
 	}
 	
+	public boolean touches(sprite s)
+	{
+		return this.boundaries().touches(s.boundaries());
+	}
+	
+	public boolean intersects(sprite s)
+	{
+		return this.boundaries().overlap(s.boundaries());
+	}
+	
 	public void draw(int x, int y) {
 		if (gc == null)
 			return;
@@ -91,7 +113,8 @@ public class sprite {
 		if (gc == null)
 			return;
 		
-		
+		Rotate r = new Rotate(angle, p.x, p.y);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 	}
 	
 	public void draw(double angle)
@@ -99,9 +122,9 @@ public class sprite {
 		if (gc == null)
 			return;
 		
-		this.draw();
-		
 		if (angle != 0.0)
 			this.gc.rotate(this.angle = angle);
+	
+		this.draw();
 	}
 }
