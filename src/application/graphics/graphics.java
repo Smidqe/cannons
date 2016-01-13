@@ -1,5 +1,7 @@
 package application.graphics;
 
+//FIGURE OUT WHETHER TO USE THIS OR SOMETHING ELSE!!!!!!
+
 import javafx.scene.canvas.*;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -56,5 +58,10 @@ public class graphics extends Canvas{
 	{
 		for (int i = 0; i < num; i++)
 			add_layer();
+	}
+	
+	public void draw_arc()
+	{
+	
 	}
 }

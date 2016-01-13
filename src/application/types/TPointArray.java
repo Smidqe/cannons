@@ -68,13 +68,20 @@ public class TPointArray {
 		
 		for (TPoint p : points)
 		{
+			//check if the point is to the left, move the starting point
 			b.setX1(p.x < b.getX1() ? p.x : b.getX1());
 			b.setY1(p.y < b.getY1() ? p.x : b.getY1());
 			
+			//check if the point is to the right, increase the size of the box (move the second point)
 			b.setX2(p.x > b.getX2() ? p.x : b.getX2());
 			b.setY2(p.x > b.getY2() ? p.x : b.getY2());
 		}
 		
 		return b;
+	}
+	
+	public ArrayList<TPoint> getPoints()
+	{
+		return this.points;
 	}
 }

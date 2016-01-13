@@ -30,7 +30,8 @@ public class TPoint extends Point {
 		return (this.x == p.x && this.y == p.y);
 	}
 	
-	public void offset(int X, int Y){
+	public void offset(int X, int Y)
+	{
 		this.x += X;
 		this.y += Y;
 	}
@@ -39,11 +40,13 @@ public class TPoint extends Point {
 		this.offset(a, a);
 	}
 	
-	public TPoint convert(Point p){
+	public TPoint convert(Point p)
+	{
 		return new TPoint(p.x, p.y);
 	}
 	
-	public TPoint pos(){	
+	public TPoint pos()
+	{	
 		return convert(MouseInfo.getPointerInfo().getLocation());
 	}
 	
@@ -57,5 +60,12 @@ public class TPoint extends Point {
 	  	return r;
 	}
 	
+	public double distance(TPoint p)
+	{
+		return distance(this.x, this.y, p.x, p.y);
+	}
+	
 	private static final long serialVersionUID = 1L;
+	
+	
 }

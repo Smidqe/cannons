@@ -4,12 +4,12 @@ import application.types.*;
 import java.util.*;
 
 public class physics {
-	public double circle(int power, int radius)
+	public static double circle(int power, int radius)
 	{
-		return Math.PI * Math.pow((double) radius, 2.0);
+		return Math.PI * (Math.pow((double) radius, 2.0) * power);
 	}
 	
-	public TPoint arc(double v, double ang, double time, TPoint p) //calculates a point in the arc.
+	public static TPoint arc(double v, double ang, double time, TPoint p) //calculates a point in the arc.
 	{
 		long x, y;
 		double vx, vy;
@@ -23,7 +23,7 @@ public class physics {
 		return new TPoint((int) x, (int) y); //they will never overflow because there's no screen as large!!!
 	}
 	
-	public ArrayList<TPoint> arc(double v, double ang, TPoint p, double interval)
+	public static ArrayList<TPoint> arc(double v, double ang, TPoint p, double interval)
 	{
 		int i = 0;
 		
@@ -34,7 +34,7 @@ public class physics {
 		return __arc;
 	}
 	
-	public double angle(TPoint s, TPoint e, double v) //gets the angle even on hills.
+	public static double angle(TPoint s, TPoint e, double v) //gets the angle even on hills.
 	{
 		return (Math.atan(Math.pow(v, 2) + Math.sqrt(Math.pow(v, 4) - 9.81 * (9.81 * Math.pow(e.x - s.x, 2) + 2 * (e.y - s.y) * Math.pow(v, 2)))) / 9.81 * (e.x - s.x));
 	}

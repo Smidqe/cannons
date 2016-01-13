@@ -17,6 +17,22 @@ public class layer extends Canvas{
 		sprites = new ArrayList<sprite>();
 	}
 	
+	public layer(boolean Static)
+	{
+		this();
+		this.__static = Static;
+	}
+	
+	public boolean isStatic()
+	{
+		return this.__static;
+	}
+	
+	public void setStatic(boolean Static)
+	{
+		this.__static = Static;
+	}
+	
 	public void clear()
 	{
 		this.getGraphicsContext2D().clearRect(0, 0, getWidth(), getHeight());
@@ -48,18 +64,24 @@ public class layer extends Canvas{
 			s.draw();
 	}
 	
+	public void refresh(ArrayList<Integer> indexes)
+	{
+		if (this.__static)
+			return;
+		
+		for (int i : indexes)
+			this.clear(sprites.get(i).boundaries());
+		
+		for (int i : indexes)
+			sprites.get(i).draw();
+	}
+	
 	public ArrayList<sprite> getSprites()
 	{
 		if (sprites.size() == 0)
 			return null;
-		
-		ArrayList<sprite> res = new ArrayList<sprite>();
-		
-		
-		
-		res.addAll(sprites);
-		
-		return res;
+
+		return new ArrayList<sprite>(sprites);
 	}
 	
 	public sprite getSprite(int index)
