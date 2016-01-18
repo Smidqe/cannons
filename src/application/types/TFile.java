@@ -15,13 +15,18 @@ import java.util.ArrayList;
 
 @SuppressWarnings("unused")
 public class TFile extends File{
-	private boolean open, read, write, binary;
+	private boolean open, read, write, binary, directory;
 	private String name, path, type;
 	private OutputStream __writer;
 	private InputStream __reader;
 
 	private static final long serialVersionUID = 1L;
 
+	public TFile(String pathname)
+	{
+		this(pathname, true);
+	}
+	
 	public TFile(String pathname, boolean read)
 	{
 		super(pathname);
@@ -32,8 +37,13 @@ public class TFile extends File{
 		set_method(!read);
 	}
 	
+	
+	
 	public void set_method(boolean write)
 	{
+		if (this.directory)
+			return;
+		
 		if (this.read && write)
 		{
 			this.read = false;
@@ -45,6 +55,45 @@ public class TFile extends File{
 			this.write = false;
 			this.read = true;
 		}
+	}
+	
+	public ArrayList<File> getFiles()
+	{
+		ArrayList<File> __files = new ArrayList<File>();
+		File[] __file = this.listFiles();
+		
+		for (int i = 0; i < __file.length; i++)
+			__files.add(__file[i]);
+		
+		return __files;
+	}
+	
+	public ArrayList<File> getFiles(String extension)
+	{
+		ArrayList<File> files = getFiles();
+		ArrayList<File> res = new ArrayList<File>();
+	
+		for (int i = 0; i < files.size(); i++)
+			if (files.get(i).getName().endsWith(extension))
+				res.add(files.get(i));
+		
+		return res;
+	}
+	
+	public int fileCount()
+	{
+		if (!this.directory)
+			return 1;
+		
+		return this.getFiles().size();
+	}
+	
+	public int fileCount(String extension)
+	{
+		if (!this.directory)
+			return 0;
+		
+		return getFiles(extension).size();
 	}
 	
 	public OutputStream output()

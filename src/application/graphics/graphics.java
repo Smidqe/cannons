@@ -3,18 +3,12 @@ package application.graphics;
 //FIGURE OUT WHETHER TO USE THIS OR SOMETHING ELSE!!!!!!
 
 import javafx.scene.canvas.*;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
-import application.types.*;
 import application.misc.utils;
 
-@SuppressWarnings("unused")
-public class graphics extends Canvas{
-	public enum LAYER {BACKGROUND, GROUND, BARRELS, TURRETS};
-	
+public class graphics {
 	private ArrayList<layer> layers;
 	
 	protected graphics()
@@ -40,11 +34,6 @@ public class graphics extends Canvas{
 		return layer(index).getGraphicsContext2D();
 	}
 	
-	public void background()
-	{
-		graphics_context(0).setStroke(Color.LIGHTGREY);
-		graphics_context(0).rect(0, 0, getWidth(), getHeight());
-	}
 	public void draw(int t) {
 		// TODO Auto-generated method stub
 	}
@@ -63,5 +52,10 @@ public class graphics extends Canvas{
 	public void draw_arc()
 	{
 	
+	}
+
+	public static graphics getInstance() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

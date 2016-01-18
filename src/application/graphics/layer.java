@@ -93,6 +93,11 @@ public class layer extends Canvas{
 	}
 		
 	
+	public void setSprites(ArrayList<sprite> __sprites)
+	{
+		this.sprites = __sprites;
+	}
+	
 	public void add(sprite s)
 	{
 		if (sprites == null)

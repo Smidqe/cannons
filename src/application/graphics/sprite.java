@@ -3,7 +3,7 @@ package application.graphics;
 import application.types.TBox;
 import application.types.TFile;
 import application.types.TPoint;
-
+import application.types.TPolygon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
@@ -15,6 +15,7 @@ public class sprite {
 	private GraphicsContext gc;
 	private String name;
 	private double angle;
+	private TPolygon hitbox;
 	
 	public sprite()
 	{

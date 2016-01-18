@@ -84,4 +84,9 @@ public class TPointArray {
 	{
 		return this.points;
 	}
+
+	public int size() {
+		return this.points.size();
+	}
+
 }
