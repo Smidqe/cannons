@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Drawings">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Canvas fx:id="cnv_test" height="373.0" width="473.0" />
+                        <Separator layoutX="470.0" orientation="VERTICAL" prefHeight="371.0" prefWidth="11.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="0.0" />
+                        <Button layoutX="473.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="126.0" text="Draw a sprite" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Button layoutX="473.0" layoutY="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="126.0" text="Rotate a sprite" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+                        <Button layoutX="473.0" layoutY="61.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="126.0" text="Animate a sprite" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+                        <Button layoutX="473.0" layoutY="342.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="126.0" text="Clear" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab disable="true" text="Files">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Canvas height="373.0" width="452.0" />
+                        <Separator layoutX="470.0" orientation="VERTICAL" prefHeight="371.0" prefWidth="11.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="0.0" />
+                        <Button layoutX="474.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="126.0" text="Load a file (stub)" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Button layoutX="474.0" layoutY="28.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="126.0" text="Save a file (stub)" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab disable="true" text="Controls">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Canvas height="373.0" width="452.0" />
+                        <Separator layoutX="470.0" orientation="VERTICAL" prefHeight="371.0" prefWidth="11.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
