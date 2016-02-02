@@ -117,6 +117,9 @@ public class layer extends Canvas{
 	
 	public void focus()
 	{
+		if (this.__static)
+			return;
+		
 		this.toFront();
 	}
 	

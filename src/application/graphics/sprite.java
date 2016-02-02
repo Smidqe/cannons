@@ -3,7 +3,7 @@ package application.graphics;
 import application.types.TBox;
 import application.types.TFile;
 import application.types.TPoint;
-import application.types.TPolygon;
+//import application.types.TPolygon;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
@@ -14,8 +14,10 @@ public class sprite {
 	private TPoint p;
 	private GraphicsContext gc;
 	private String name;
+	private TBox bounds;
 	private double angle;
-	private TPolygon hitbox;
+	//private TPolygon hitbox;
+	private int layer;
 	
 	public sprite()
 	{
@@ -127,5 +129,27 @@ public class sprite {
 			this.gc.rotate(this.angle = angle);
 	
 		this.draw();
+	}
+
+	public TPoint getPoint() {
+		return this.p;
+	}
+
+	public int getLayer() {
+		return layer;
+	}
+
+	public void setLayer(int layer) {
+		this.layer = layer;
+	}
+
+	public TBox getBounds() {
+		// TODO Auto-generated method stub
+		return this.bounds;
+	}
+
+	public Image getImage() {
+		// TODO Auto-generated method stub
+		return this.img;
 	}
 }

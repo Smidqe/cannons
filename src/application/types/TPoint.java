@@ -23,8 +23,29 @@ public class TPoint extends Point {
 		this.x = X;
 		this.y = Y;
 	}
+	
+	public void modify(int x, int y)
+	{
+		this.x += x;
+		this.y += y;
+	}
 
-
+	public void multiply(int x, int y)
+	{
+		this.x *= x;
+		this.y *= y;
+	}
+	
+	public void multiply(int v)
+	{
+		this.multiply(v, v);
+	}
+	
+	public void modify(int v)
+	{
+		this.modify(v, v);
+	}
+	
 	public boolean equals(TPoint p)
 	{
 		return (this.x == p.x && this.y == p.y);
@@ -36,8 +57,8 @@ public class TPoint extends Point {
 		this.y += Y;
 	}
 
-	public void offset(int a){
-		this.offset(a, a);
+	public void offset(TPoint p){
+		this.offset((int) p.getX(), (int) p.getY());
 	}
 	
 	public TPoint convert(Point p)

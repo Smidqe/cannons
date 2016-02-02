@@ -4,8 +4,6 @@ package application.types;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,9 +11,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-@SuppressWarnings("unused")
 public class TFile extends File{
-	private boolean open, read, write, binary, directory;
+	private boolean read, write, binary;
 	private String name, path, type;
 	private OutputStream __writer;
 	private InputStream __reader;
@@ -32,18 +29,13 @@ public class TFile extends File{
 		super(pathname);
 		
 		this.name = getName();
-		this.type = type();
+		this.type = getExtension();
 		
 		set_method(!read);
 	}
-	
-	
-	
+
 	public void set_method(boolean write)
 	{
-		if (this.directory)
-			return;
-		
 		if (this.read && write)
 		{
 			this.read = false;
@@ -56,44 +48,27 @@ public class TFile extends File{
 			this.read = true;
 		}
 	}
-	
-	public ArrayList<File> getFiles()
+
+	public String getExtension()
 	{
-		ArrayList<File> __files = new ArrayList<File>();
-		File[] __file = this.listFiles();
+	    if (!this.type.equals(""))
+	    	return this.type;
 		
-		for (int i = 0; i < __file.length; i++)
-			__files.add(__file[i]);
-		
-		return __files;
+		try {
+	        return this.type = this.name.substring(this.name.lastIndexOf(".") + 1);
+	    } catch (Exception e) {
+	        return "";
+	    }
 	}
 	
-	public ArrayList<File> getFiles(String extension)
+	public long getSize()
 	{
-		ArrayList<File> files = getFiles();
-		ArrayList<File> res = new ArrayList<File>();
-	
-		for (int i = 0; i < files.size(); i++)
-			if (files.get(i).getName().endsWith(extension))
-				res.add(files.get(i));
-		
-		return res;
+		return this.length();
 	}
 	
-	public int fileCount()
+	public String getType()
 	{
-		if (!this.directory)
-			return 1;
-		
-		return this.getFiles().size();
-	}
-	
-	public int fileCount(String extension)
-	{
-		if (!this.directory)
-			return 0;
-		
-		return getFiles(extension).size();
+		return this.type;
 	}
 	
 	public OutputStream output()
@@ -106,15 +81,15 @@ public class TFile extends File{
 		return __reader;
 	}
 	
-	public boolean write(String s, boolean append)
+	public boolean write(String s, boolean overwrite)
 	{
-		if (!this.write || !this.open || this.binary)
+		if (!this.write || this.binary)
 			return false;
 		
 		OutputStreamWriter w = new OutputStreamWriter(__writer);
 		try {
 			
-			if (append)
+			if (!overwrite)
 				w.append(s);
 			else
 				w.write(s);
@@ -128,13 +103,12 @@ public class TFile extends File{
 	
 	public ArrayList<String> read()
 	{
-		if (!this.read || !this.open || this.binary)
+		if (!this.read || this.binary)
 			return null;
 		
 		ArrayList<String> lines = new ArrayList<String>();
-		BufferedReader r;
 		try {
-			r = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
+			BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
 			String __tmp;
 			
 			while ((__tmp = r.readLine()) != null)
@@ -148,50 +122,19 @@ public class TFile extends File{
 		
 		return lines;
 	}
-	
-	
-	
-	public String type()
+
+	public TFile convert(File file)
 	{
-		return "";
+		return new TFile(file.getAbsolutePath());
 	}
 	
-	public String path()
+	public ArrayList<TFile> convert(File[] listFiles) 
 	{
-		if (!open || path.isEmpty())
-			return "";
+		ArrayList<TFile> converted = new ArrayList<TFile>();
 		
-		if (!path.isEmpty())
-			return path;
+		for (File f : listFiles)
+			converted.add(this.convert(f));
 		
-		return path = this.getPath();
-	}
-	
-	public boolean close() throws IOException
-	{
-		__writer.close();
-		__reader.close();
-		
-		return (this.open = false);
-	}
-	
-	public boolean isOpen()
-	{
-		return (this.open || this.__reader != null || this.__writer != null);
-	}
-	
-	public boolean open() throws FileNotFoundException
-	{
-		if (isOpen())
-			return true;
-		
-		if (this.write)
-			this.__writer = new FileOutputStream(this.path);
-		else
-			this.__reader = new FileInputStream(this.path);
-		
-		set_method(this.write);
-		
-		return this.open = isOpen();
+		return converted;
 	}
 }

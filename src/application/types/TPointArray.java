@@ -1,6 +1,7 @@
 package application.types;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TPointArray {
 	public ArrayList<TPoint> points;
@@ -10,6 +11,10 @@ public class TPointArray {
 		points = new ArrayList<TPoint>();
 	}
 	
+	public TPointArray(List<TPoint> list) {
+		points = new ArrayList<TPoint>(list);
+	}
+
 	public void append(TPoint p)
 	{
 		if (points == null)
@@ -37,8 +42,10 @@ public class TPointArray {
 	
 	public void delete(ArrayList<Integer> indexes)
 	{
+		int deleted = 0;
+		
 		for (int i : indexes)
-			this.delete(i);
+			this.delete(i - deleted++);
 	}
 	
 	public int position(TPoint p)
@@ -54,12 +61,20 @@ public class TPointArray {
 		return -1;
 	}
 	
-	public boolean inside(TPoint p)
+	public void swap(int __from, int __to)
+	{
+		TPoint tmp = this.points.get(__from);
+		
+		this.points.set(__from, this.points.get(__to));
+		this.points.set(__to, tmp);
+	}
+	
+	public boolean contains(TPoint p)
 	{
 		return (position(p) != -1);
 	}
 	
-	public TBox bounds() //TODO: Finish
+	public TBox bounds()
 	{
 		if (points == null || points.size() == 0)
 			return null;
@@ -80,6 +95,11 @@ public class TPointArray {
 		return b;
 	}
 	
+	public TPoint get(int index)
+	{
+		return this.points.get(index);
+	}
+
 	public ArrayList<TPoint> getPoints()
 	{
 		return this.points;

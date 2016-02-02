@@ -1,3 +1,4 @@
+//rewrite this class as soon as possible!
 package application.math;
 
 import application.types.*;
@@ -10,7 +11,7 @@ public class physics {
 	}
 	
 	public static TPoint arc(double v, double ang, double time, TPoint p) //calculates a point in the arc.
-	{
+	{		
 		long x, y;
 		double vx, vy;
 		
@@ -25,8 +26,11 @@ public class physics {
 	
 	public static ArrayList<TPoint> arc(double v, double ang, TPoint p, double interval)
 	{
-		int i = 0;
+		if (v == 0)
+			return new ArrayList<TPoint>(Arrays.asList(p));
 		
+		int i = 0;
+
 		ArrayList<TPoint> __arc = new ArrayList<TPoint>();
 		while (__arc.get(__arc.size()).y != p.y || i == 0)
 			__arc.add(arc(v, ang, interval * i++, p));

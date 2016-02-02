@@ -10,21 +10,43 @@ import application.math.*;
 import application.misc.randoms;
 
 @SuppressWarnings("unused")
-public class ai {
+
+class THitInfo
+{
+	private TPoint impact;
+	private boolean hit;
+	private double angle, power;
+	
+	THitInfo()
+	{
+		this.impact = new TPoint(-1, -1);
+	}
+
+}
+
+@SuppressWarnings("unused")
+public class ai extends TPlayer{
 	
 	
 	private double prev_angle, cur_angle, prev_power, cur_power;
-	private int current_weapon, last_health_player;
+	private int current_weapon, last_health_player, direction;
 	private TPoint last_hit, desired;
-	private TPointArray prev_hits;
+	private THitInfo history;
 	private boolean initial_hit_done, previous_hitted, adjust_angle, adjust_speed, switch_weapon;
 	private TPlayer enemy;
 	
 	public ai()
 	{
+		super(constants.MAX_HEALTH);
+		
 		last_hit = new TPoint(-1, -1);
 		last_health_player = current_weapon = -1;
 		prev_angle = cur_angle = 0.0;
+	}
+	
+	public void set_enemy(TPlayer enemy)
+	{
+		this.enemy = enemy;
 	}
 	
 	public void reset_variables()
@@ -38,10 +60,26 @@ public class ai {
 	
 	public void aim()
 	{
+		TPoint __player = this.getPosition();
+		TPoint __enemy = enemy.getPosition();
+		TPoint impact = new TPoint(-1, -1);
+		
+		if (direction == -1)
+			direction = choose_direction();
+		
 		/*
-			-- the whole brain of the ai --
+		 	-- Progress (for the cannons)
+		 		- Check the direction where does the enemy lie (always known)
+		 		- Estimate the angle and the power
+		 			- As turns progress the angle and power should get more accurate
+		 			- Once the ideal power/angle has been found keep it, perhaps switch to a different weapon
+		 				- Checks by whether the enemy has lost hp
+		 			- Repeat
+		 			
+		 		- 
 		 */
-	
+		
+		enemy.modify(constants.PLAYER_VALUE_DAMAGE, this.getWeapon().calculate_damage(impact, enemy));
 	}
 	
 	public void choose_weapon()
@@ -66,10 +104,7 @@ public class ai {
 	
 	public int choose_direction()
 	{
-		if (enemy.getPosition().distance(last_hit) > 40)
-			return -1;
-		
-		return 0;
+		return (this.getPosition().getX() > enemy.getPosition().getX()) ? 0 : 1;
 	}
 	
 	public void set()

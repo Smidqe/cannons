@@ -1,6 +1,9 @@
 package application.types;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import application.misc.utils;
 
 public class TBox {
 	private int x1, x2, y1, y2;
@@ -68,12 +71,7 @@ public class TBox {
 	
 	public ArrayList<Integer> dimensions()
 	{
-		ArrayList<Integer> r = new ArrayList<Integer>();
-		
-		r.add(width());
-		r.add(height());
-		
-		return r;
+		return new ArrayList<Integer>(Arrays.asList(width(), height()));
 	}
 	
 	public void normalize()
@@ -142,6 +140,17 @@ public class TBox {
 	public boolean overlap(TBox b) 
 	{
 		return  (!((this.x1 > b.x2) || (this.x2 < b.x1) || (this.y1 > b.y2) || (this.y2 < b.y1)));
+	}
+	
+	public boolean same(TBox box)
+	{
+		return similar(box, 0);
+	}
+	
+	public boolean similar(TBox box, int threshold)
+	{
+		return (utils.inRange(this.width(), box.width() - threshold, box.width() + threshold) && 
+				utils.inRange(this.height(), box.height() - threshold, box.height() + threshold));
 	}
 	
 	public int getX1() {
