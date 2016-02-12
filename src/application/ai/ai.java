@@ -79,7 +79,7 @@ public class ai extends TPlayer{
 		 		- 
 		 */
 		
-		enemy.modify(constants.PLAYER_VALUE_DAMAGE, this.getWeapon().calculate_damage(impact, enemy));
+		enemy.modify(constants.PLAYER_VALUE_DAMAGE, (int) this.getWeapon().calculate_damage(impact, enemy));
 	}
 	
 	public void choose_weapon()

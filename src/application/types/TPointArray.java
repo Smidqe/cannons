@@ -74,6 +74,19 @@ public class TPointArray {
 		return (position(p) != -1);
 	}
 	
+	public TPoint middle()
+	{
+		if (points == null || points.size() == 0)
+			return null;
+		
+		TPoint result = new TPoint();
+		for (TPoint p : points)
+			result.modify((int) p.getX(), (int) p.getY());
+		
+		result.divide(points.size());
+		return result;
+	}
+	
 	public TBox bounds()
 	{
 		if (points == null || points.size() == 0)
@@ -107,6 +120,14 @@ public class TPointArray {
 
 	public int size() {
 		return this.points.size();
+	}
+
+	public void rotate(double angle, TPoint point) {
+		if (this.points.size() == 0)
+			return;
+		
+		for (TPoint p : points)
+			p.rotate(angle, point);
 	}
 
 }

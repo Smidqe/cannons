@@ -1,5 +1,5 @@
 package application.types;
-
+//CLEAN THIS!
 
 import java.util.ArrayList;
 import java.util.Arrays;

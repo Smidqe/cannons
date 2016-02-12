@@ -87,6 +87,29 @@ public class TPoint extends Point {
 	}
 	
 	private static final long serialVersionUID = 1L;
+
+	public double distance(TBox bounds, boolean center) {
+		if (!center)
+			return (distance(bounds.middle()));
+		
+		
+		return 0;
+	}
+
+	public void divide(int xdiv, int ydiv)
+	{
+		this.x /= xdiv;
+		this.y /= ydiv;
+	}
+	
+	public void divide(int size) {
+		this.divide(size, size);
+	}
+
+	public void rotate(double angle, TPoint middle) {
+		this.x = (int) Math.round(middle.x + Math.cos(angle) * (this.x - middle.x) - Math.sin(angle) * (this.y - middle.y));
+		this.y = (int) Math.round(middle.y + Math.sin(angle) * (this.x - middle.x) + Math.cos(angle) * (this.y - middle.y));
+	}
 	
 	
 }

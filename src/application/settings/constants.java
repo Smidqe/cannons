@@ -17,9 +17,26 @@ public final class constants {
 	public static final int PLAYER_VALUE_SHOTS = 3;
 	public static final int PLAYER_VALUE_DAMAGE = 4;
 	
+	//for a sprite index.
 	public static final int SPRITE_INDEX_CANNONS_PLAYER = 0;
 	public static final int SPRITE_INDEX_CANNONS_HIGH = 1;
+	
+	//physics constants
 	public static final double GRAVITATIONAL = 9.81;
 	
-	//public static final int
+	//corner constants used in various places!
+	public static final int CORNER_NE = 0;
+	public static final int CORNER_SE = 1;
+	public static final int CORNER_SW = 2;
+	public static final int CORNER_NW = 3;
+	
+	//constants for box sides
+	public static final int SIDE_NORTH = 0;
+	public static final int SIDE_EAST = 1;
+	public static final int SIDE_SOUTH = 2;
+	public static final int SIDE_WEST = 3;
+	
+	public static final int DISTANCE_START = 0;
+	public static final int DISTANCE_END = 1;
+	public static final int DISTANCE_BETWEEN = 2;
 }

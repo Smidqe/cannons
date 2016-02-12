@@ -100,7 +100,9 @@ public class graphics {
 
 	public void draw(sprite sprite, TPoint point)
 	{
+		sprite.setPoint(point);
 		
+		draw(sprite);
 	}
 	
 	public void draw(double angle, sprite sprite)

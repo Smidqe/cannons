@@ -3,8 +3,11 @@ package application.types;
 import application.graphics.sprite;
 
 public class TWeapon {
-	private int power, weight, count, capacity, radius;
+	private String name;
+	private int weight, count, capacity;
+	private TCircle area;
 	private sprite sprite, projectile;
+	private double power;
 	
 	public TWeapon()
 	{
@@ -12,18 +15,13 @@ public class TWeapon {
 		projectile = new sprite();
 	}
 	
-	public int calculate_damage(TPoint impact, TPlayer enemy)
+	public double calculate_damage(TPoint impact, TPlayer enemy)
 	{
-		if (impact.distance(enemy.getPosition()) > radius)
+		if (!enemy.solid())
 			return 0;
-		
-		/*
-		 	--- Method::
-		 		- The closer to the center (direct hit), then the power is at the maximium!
-		 		
-		 */
-		
-		return -1;
+
+		double damage = (1 - impact.distance(enemy.getSprite().boundaries(), false) / area.getRadius()) * power; 	
+		return damage > 0 ? damage : 0;
 	}
 	
 	public void setSprite(sprite s)
@@ -79,8 +77,12 @@ public class TWeapon {
 		return this.weight;
 	}
 	
-	public int getPower()
+	public double getPower()
 	{
 		return power;
+	}
+
+	public String getName() {
+		return name;
 	}
 }

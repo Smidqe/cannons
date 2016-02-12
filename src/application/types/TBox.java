@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import application.misc.utils;
+import application.settings.constants;
 
 public class TBox {
 	private int x1, x2, y1, y2;
@@ -151,6 +152,105 @@ public class TBox {
 	{
 		return (utils.inRange(this.width(), box.width() - threshold, box.width() + threshold) && 
 				utils.inRange(this.height(), box.height() - threshold, box.height() + threshold));
+	}
+
+	public TPoint closest_corner(TPoint point)
+	{
+		int values[] = new int[4];
+		
+		double result = 0, distance = 0;
+		int index = -1;
+		for (int i = 0; i < values.length; i++)
+		{
+			switch(i)
+			{
+				case 0: distance = point.distance(this.getCorner(constants.CORNER_NW)); break;
+				case 1: distance = point.distance(this.getCorner(constants.CORNER_NE)); break;
+				case 2: distance = point.distance(this.getCorner(constants.CORNER_SE)); break;
+				case 3: distance = point.distance(this.getCorner(constants.CORNER_SW)); break;
+			}
+		
+			if (distance > result)
+			{
+				result = distance;
+				index = i;
+			}
+		}
+		
+		return getCorner(index);
+	}
+	
+	private TPoint getCorner(int corner) {
+		if (!utils.inRange(corner, constants.CORNER_NE, constants.CORNER_SW))
+			return null;
+		
+		switch(corner)
+		{
+			case constants.CORNER_NW: return new TPoint(getX1(), getY1());
+			case constants.CORNER_NE: return new TPoint(getX2(), getY1());
+			case constants.CORNER_SE: return new TPoint(getX2(), getY2());
+			case constants.CORNER_SW: return new TPoint(getX1(), getY2());
+		}
+		
+		return null;
+	}
+
+	
+	public ArrayList<TLine> getSides()
+	{
+		ArrayList<TLine> result = new ArrayList<TLine>();
+		
+		for (int i = 0; i < 4; i++)
+			result.add(new TLine(getCorner(i), getCorner((i + 1) % 4)));
+		
+		return result;
+	}
+	
+	
+	public void rotate(double angle)
+	{
+		TPointArray a = new TPointArray();
+		
+		for (int i = constants.CORNER_NE; i < constants.CORNER_NW; i++)
+			a.append(getCorner(i));
+		
+		a.rotate(angle, middle());		
+	}
+	
+	public int getClosestSide(TPoint point, boolean debug) //not finished!
+	{
+		ArrayList<TLine> sides = getSides();
+		
+		double distance = 0, result = 0;
+		int index = -1;
+		for (int i = 0; i < sides.size(); i++)
+		{
+			distance = sides.get(i).distance(constants.DISTANCE_BETWEEN, point);
+			
+			if (distance < result || i == 0)
+			{
+				result = distance;
+				index = i;
+			}
+		}	
+		
+		if (debug)
+			System.out.println("Distance from " + point.toString() + ": " + result);
+		
+		return index;
+	}
+	
+	public TLine getClosestSide(TPoint point)
+	{
+		return getSides().get(getClosestSide(point, false));
+	}
+	
+	public double distance(TPoint point, boolean center)
+	{
+		if (center)
+			return middle().distance(point);
+		
+		return getClosestSide(point).distance(constants.DISTANCE_BETWEEN, point);
 	}
 	
 	public int getX1() {

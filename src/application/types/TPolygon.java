@@ -1,12 +1,15 @@
 package application.types;
 
+import java.util.ArrayList;
+
 public class TPolygon {
 	private TPointArray points;
-	//private TLineArray vertices;
+	private ArrayList<TLine> vertices;
 	
 	public TPolygon()
 	{
 		this.points = new TPointArray();
+		this.vertices = new ArrayList<TLine>();
 	}
 	
 	public void setPoints(TPointArray points)
@@ -32,7 +35,7 @@ public class TPolygon {
 		
 		for (int i = 0; i < size[0]; i++)
 			for (int j = 0; j < size[1]; j++)
-				if (points.points.get(i).distance(poly.points.points.get(i)) <= 1.5)
+				if (points.points.get(i).distance(poly.points.points.get(i)) <= 1)
 					return true;
 		
 		return false;
