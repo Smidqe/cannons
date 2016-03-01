@@ -152,4 +152,14 @@ public class sprite {
 		// TODO Auto-generated method stub
 		return this.img;
 	}
+
+	public void setAngle(int i) {
+		// TODO Auto-generated method stub
+		this.angle = (double) i;
+	}
+
+	public TFile getFile() {
+		// TODO Auto-generated method stub
+		return this.source;
+	}
 }

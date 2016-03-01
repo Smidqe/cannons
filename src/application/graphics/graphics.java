@@ -12,12 +12,18 @@ import application.types.TTimer;
 
 public class graphics {
 	private ArrayList<layer> layers;
+	private static graphics __graphics = new graphics();
+	
+	public static graphics instance()
+	{
+		return __graphics;
+	}
 	
 	protected graphics()
 	{
 		super();
 		
-		layers = new ArrayList<layer>();
+		this.layers = new ArrayList<layer>();
 	}
 
 	public layer layer(int index)
@@ -77,25 +83,48 @@ public class graphics {
 		move(arc.getArc(), sprite);
 	}
 	
-	public void add_layer()
+	public void add_layer(layer layer)
 	{
-		layers.add(new layer());
+		layers.add(layer);
 	}
 	
-	public void add_layer(int num)
+	public int find(String name, layer layer, boolean debug)
 	{
-		for (int i = 0; i < num; i++)
-			add_layer();
+		int index = 0;
+		for (sprite s : layer.getSprites())
+		{
+			if (s.getName().equals(name))
+				return index;
+			
+			index++;
+		}
+		
+		return -1;
 	}
 	
-	public sprite find(String name)
+	public sprite find(String name, layer layer)
 	{
-		return null;
+		int location = find(name, layer, false);
+		
+		if (location == -1)
+			return null;
+		else
+			return layer.getSprite(location);	
 	}
 	
 	public void draw(sprite sprite, TArc arc)
 	{
-	
+		TPointArray points = arc.getArc();
+		
+		double angle = 0;
+		for (int i = 0; i < points.size(); i++)
+		{
+			if (!(i + 1 == points.size()))
+				angle = points.get(i).angle(points.get(i + 1));
+
+			sprite.draw(points.get(i));
+			sprite.rotate(angle);
+		}
 	}
 
 	public void draw(sprite sprite, TPoint point)
@@ -115,6 +144,7 @@ public class graphics {
 		
 	}
 	
+	//Draws sprite along the points, (check the angle?)
 	public void draw(sprite sprite, TPointArray array)
 	{
 		for (TPoint p : array.points)
@@ -141,9 +171,9 @@ public class graphics {
 		
 		
 	}
-	
-	public static graphics getInstance() {
+
+	public int layer_count() {
 		// TODO Auto-generated method stub
-		return null;
+		return layers.size();
 	}
 }

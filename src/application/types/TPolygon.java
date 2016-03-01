@@ -1,13 +1,22 @@
 package application.types;
 
+import java.awt.Polygon;
 import java.util.ArrayList;
 
-public class TPolygon {
+import application.debug.debug;
+
+public class TPolygon extends Polygon{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3381601519632911424L;
 	private TPointArray points;
 	private ArrayList<TLine> vertices;
 	
 	public TPolygon()
 	{
+		super();
+		
 		this.points = new TPointArray();
 		this.vertices = new ArrayList<TLine>();
 	}
@@ -29,13 +38,31 @@ public class TPolygon {
 		return false;
 	}
 	
+	public void form()
+	{
+		for (int i = 0; i < this.points.size() - 1; i++)
+			this.vertices.add(new TLine(this.points.get(i), this.points.get(i + 1)));
+		
+		debug.log.entry("Vertices formed.");
+	}
+	
+	public void clear()
+	{
+		this.vertices.clear();
+	}
+	
+	
+	
+	public ArrayList<TLine> getVertices()
+	{
+		return this.vertices;
+	}
+	
 	public boolean touches(TPolygon poly)
 	{
-		int[] size = {this.points.size(), poly.points.size()};
-		
-		for (int i = 0; i < size[0]; i++)
-			for (int j = 0; j < size[1]; j++)
-				if (points.points.get(i).distance(poly.points.points.get(i)) <= 1)
+		for (TLine verticeA : this.vertices)
+			for (TLine verticeB : poly.vertices)
+				if (verticeA.intersects(verticeB))
 					return true;
 		
 		return false;

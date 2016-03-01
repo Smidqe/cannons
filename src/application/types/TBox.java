@@ -8,14 +8,23 @@ import application.settings.constants;
 
 public class TBox {
 	private int x1, x2, y1, y2;
+	private TPointArray corners;
+	
 	public TBox()
 	{
 	}
 	
 	public TBox(int width, int height)
 	{
+		
+		this.x1 = 0;
+		this.y1 = 0;
+		
 		this.x2 = width;
 		this.y2 = height;
+		
+		corners = new TPointArray();
+		corners = this.getCorners();
 	}
 
 	public TBox(int x1, int y1, int x2, int y2)
@@ -25,6 +34,9 @@ public class TBox {
 		
 		this.x2 = x2;
 		this.y2 = y2;
+		
+		corners = new TPointArray();
+		corners = this.getCorners();
 	}
 	
 	public TBox(TPoint s, TPoint e)
@@ -34,6 +46,9 @@ public class TBox {
 		
 		this.x2 = e.x;
 		this.y2 = e.y;
+		
+		corners = new TPointArray();
+		corners = this.getCorners();
 	}
 	
 	public int width()
@@ -156,18 +171,17 @@ public class TBox {
 
 	public TPoint closest_corner(TPoint point)
 	{
-		int values[] = new int[4];
-		
 		double result = 0, distance = 0;
 		int index = -1;
-		for (int i = 0; i < values.length; i++)
+		
+		for (int i = 0; i < 4; i++)
 		{
 			switch(i)
 			{
-				case 0: distance = point.distance(this.getCorner(constants.CORNER_NW)); break;
-				case 1: distance = point.distance(this.getCorner(constants.CORNER_NE)); break;
-				case 2: distance = point.distance(this.getCorner(constants.CORNER_SE)); break;
-				case 3: distance = point.distance(this.getCorner(constants.CORNER_SW)); break;
+				case 0: distance = point.distance(this.createCorner(constants.CORNER_NW)); break;
+				case 1: distance = point.distance(this.createCorner(constants.CORNER_NE)); break;
+				case 2: distance = point.distance(this.createCorner(constants.CORNER_SE)); break;
+				case 3: distance = point.distance(this.createCorner(constants.CORNER_SW)); break;
 			}
 		
 			if (distance > result)
@@ -177,10 +191,18 @@ public class TBox {
 			}
 		}
 		
-		return getCorner(index);
+		return createCorner(index);
 	}
 	
-	private TPoint getCorner(int corner) {
+	public TPoint getCorner(int corner)
+	{
+		if (!utils.inRange(corner, constants.CORNER_NE, constants.CORNER_SW))
+			return null;
+		
+		return corners.get(corner);
+	}
+	
+	private TPoint createCorner(int corner) {
 		if (!utils.inRange(corner, constants.CORNER_NE, constants.CORNER_SW))
 			return null;
 		
@@ -194,14 +216,23 @@ public class TBox {
 		
 		return null;
 	}
+	
+	public TPointArray getCorners()
+	{
+		TPointArray result = new TPointArray();
+		
+		for (int i = constants.CORNER_NW; i < constants.CORNER_SW; i++)
+			result.append(createCorner(i));
 
+		return result;
+	}
 	
 	public ArrayList<TLine> getSides()
 	{
 		ArrayList<TLine> result = new ArrayList<TLine>();
 		
 		for (int i = 0; i < 4; i++)
-			result.add(new TLine(getCorner(i), getCorner((i + 1) % 4)));
+			result.add(new TLine(createCorner(i), createCorner((i + 1) % 4)));
 		
 		return result;
 	}
@@ -212,9 +243,9 @@ public class TBox {
 		TPointArray a = new TPointArray();
 		
 		for (int i = constants.CORNER_NE; i < constants.CORNER_NW; i++)
-			a.append(getCorner(i));
+			a.append(createCorner(i));
 		
-		a.rotate(angle, middle());		
+		a.rotate(angle, middle());	
 	}
 	
 	public int getClosestSide(TPoint point, boolean debug) //not finished!

@@ -2,6 +2,7 @@ package application.types;
 
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.geom.Point2D;
 
 public class TPoint extends Point {
 
@@ -61,24 +62,26 @@ public class TPoint extends Point {
 		this.offset((int) p.getX(), (int) p.getY());
 	}
 	
-	public TPoint convert(Point p)
+	public TPoint cnvPtoTP(Point p)
 	{
 		return new TPoint(p.x, p.y);
 	}
 	
+	public Point2D cnvTPtoP2D()
+	{
+		return new Point2D.Double(this.x, this.y);
+	}
+	
 	public TPoint pos()
 	{	
-		return convert(MouseInfo.getPointerInfo().getLocation());
+		return cnvPtoTP(MouseInfo.getPointerInfo().getLocation());
 	}
 	
 	public double angle(TPoint p)
 	{
 		double r = ((Math.atan2((p.y - this.y), (p.x - this.x)) * (180.0 / Math.PI)) + 90.0);
-	  	
-		if (r < 0.0)
-	  		r += 360.0;
-	  	
-	  	return r;
+	
+	  	return (r >= 0.0) ? r : r + 360.0;
 	}
 	
 	public double distance(TPoint p)
@@ -89,11 +92,10 @@ public class TPoint extends Point {
 	private static final long serialVersionUID = 1L;
 
 	public double distance(TBox bounds, boolean center) {
-		if (!center)
+		if (center)
 			return (distance(bounds.middle()));
 		
-		
-		return 0;
+		return bounds.distance(this, center);
 	}
 
 	public void divide(int xdiv, int ydiv)

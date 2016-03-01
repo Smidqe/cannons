@@ -1,6 +1,16 @@
 package application.debug;
 
 public class debug {
-	public log log;
+	public static log log;
+	private debug instance = new debug();
 	
+	private debug()
+	{
+		
+	}
+	
+	public debug getInstance()
+	{
+		return this.instance;
+	}
 }

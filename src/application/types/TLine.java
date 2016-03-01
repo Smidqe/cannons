@@ -1,16 +1,30 @@
 package application.types;
+
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+
 import application.settings.constants;
 
-public class TLine {
+
+public class TLine extends Line2D{
 	private TPoint start, end;
 	
 	public TLine()
 	{
+		super();
+		
 		this.start = new TPoint();
 		this.end = new TPoint();
+		
+		super.setLine(start.cnvTPtoP2D(), end.cnvTPtoP2D()); //now we can use the original functions as well
 	}
 
 	public TLine(TPoint start, TPoint end) {
+		super();
+		
+		super.setLine(start.cnvTPtoP2D(), end.cnvTPtoP2D());
+		
 		this.start = start;
 		this.end = end;
 	}
@@ -20,8 +34,7 @@ public class TLine {
 		if (start == null || end == null)
 			return false;
 		
-
-	
+		return this.intersectsLine(line.start.x, line.start.y, line.end.x, line.end.y);
 	}
 	
 	public double length()
@@ -92,5 +105,55 @@ public class TLine {
 	public TPoint getEnd()
 	{
 		return this.end;
+	}
+
+	@Override
+	public Rectangle2D getBounds2D() {
+		Rectangle2D bounds = new Rectangle2D.Double();
+		
+		bounds.add(start.cnvTPtoP2D());
+		bounds.add(end.cnvTPtoP2D());
+		
+		return bounds;
+	}
+
+	@Override
+	public Point2D getP1() {
+		return start.cnvTPtoP2D();
+	}
+
+	@Override
+	public Point2D getP2() {
+		// TODO Auto-generated method stub
+		return end.cnvTPtoP2D();
+	}
+
+	@Override
+	public double getX1() {
+		// TODO Auto-generated method stub
+		return start.getX();
+	}
+
+	@Override
+	public double getX2() {
+		// TODO Auto-generated method stub
+		return end.getX();
+	}
+
+	@Override
+	public double getY1() {
+		// TODO Auto-generated method stub
+		return start.getY();
+	}
+
+	@Override
+	public double getY2() {
+		// TODO Auto-generated method stub
+		return end.getX();
+	}
+
+	@Override
+	public void setLine(double x1, double y1, double x2, double y2) {
+		super.setLine((new TPoint((int) x1, (int) y1)).cnvTPtoP2D(), (new TPoint((int) x2, (int) y2)).cnvTPtoP2D());
 	}
 }

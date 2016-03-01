@@ -46,7 +46,7 @@ public class Gameloop {
 		
 		//variable declarations.
 		boolean __exit = false;
-		graphics __graphics = graphics.getInstance(); 
+		graphics __graphics = graphics.instance(); 
 		
 		//the 
 		while (!__exit)
@@ -59,7 +59,7 @@ public class Gameloop {
 			 */
 			
 			
-			__graphics.add_layer();
+			//__graphics.add_layer();
 		}
 			
 		

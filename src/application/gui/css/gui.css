@@ -1,0 +1,43 @@
+/*
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+*/
+
+.grid
+{
+	-fx-background-color: #424242;
+}
+
+.background 
+{
+	-fx-background-color: #424242;
+}
+
+.canvas 
+{
+	-fx-background-color: #424242;
+}
+
+.button 
+{
+	-fx-background-color: #424242; 
+	-fx-text-fill: #FFFFFF; 
+	-fx-background-radius: 0;
+}
+
+.button:hover
+{
+	-fx-background-color: #000000;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: white;
+  -fx-text-fill: #1d1d1d;
+}
+
+.text-field
+{
+	-fx-background-radius: 0;
+	-fx-background-color: #c0c0c0;
+}

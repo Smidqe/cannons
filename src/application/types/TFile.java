@@ -4,6 +4,8 @@ package application.types;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -28,6 +30,7 @@ public class TFile extends File{
 	{
 		super(pathname);
 		
+		this.path = pathname;
 		this.name = getName();
 		this.type = getExtension();
 		
@@ -38,6 +41,7 @@ public class TFile extends File{
 	{
 		if (this.read && write)
 		{
+			
 			this.read = false;
 			this.write = true;
 		}
@@ -47,13 +51,21 @@ public class TFile extends File{
 			this.write = false;
 			this.read = true;
 		}
+	
+		try {
+			if (this.read)
+				__reader = new FileInputStream(this.path);
+			else
+				__writer = new FileOutputStream(this.path);
+			
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found!");
+			System.out.println("Path: " + path);
+		}
 	}
 
 	public String getExtension()
 	{
-	    if (!this.type.equals(""))
-	    	return this.type;
-		
 		try {
 	        return this.type = this.name.substring(this.name.lastIndexOf(".") + 1);
 	    } catch (Exception e) {

@@ -6,6 +6,17 @@ import application.types.TBox;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
+/*
+	- TODO:
+		- Finish
+		- Move to types!
+		- 
+
+
+
+*/
+
+
 public class layer extends Canvas{
 	private String name;
 	private ArrayList<sprite> sprites;
@@ -20,6 +31,14 @@ public class layer extends Canvas{
 	public layer(boolean Static)
 	{
 		this();
+		this.__static = Static;
+	}
+	
+	public layer(boolean Static, Canvas canvas)
+	{
+		super(canvas.getLayoutX(), canvas.getLayoutY());
+		
+		this.sprites = new ArrayList<sprite>();
 		this.__static = Static;
 	}
 	
@@ -78,10 +97,7 @@ public class layer extends Canvas{
 	
 	public ArrayList<sprite> getSprites()
 	{
-		if (sprites.size() == 0)
-			return null;
-
-		return new ArrayList<sprite>(sprites);
+		return sprites;
 	}
 	
 	public sprite getSprite(int index)

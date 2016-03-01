@@ -2,6 +2,7 @@ package application.types;
 
 import java.util.ArrayList;
 import application.settings.constants;
+import application.debug.debug;
 import application.graphics.sprite;
 
 public class TPlayer {
@@ -79,7 +80,7 @@ public class TPlayer {
 		if (this.weapon == null)
 		{
 			this.weapon = weapons.get(0);
-			//debug.log.entry(true, "Weapon: " + name + " not found resetting to default to weapon.");
+			debug.log.entry(true, "Weapon: " + name + " not found resetting to default to weapon.");
 		}
 	}
 	

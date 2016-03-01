@@ -17,7 +17,7 @@ public class TPointArray {
 
 	public void append(TPoint p)
 	{
-		if (points == null)
+		if (points == null) // will never be null unless added a constructor that changes the way the points is initialized.
 			return;
 		
 		points.add(p);
@@ -34,7 +34,7 @@ public class TPointArray {
 	
 	public void delete(int index)
 	{
-		if (!(index >= 0 && index <= points.size()))
+		if (!(index >= 0 && index <= size()))
 			return;
 		
 		points.remove(index);
@@ -50,7 +50,7 @@ public class TPointArray {
 	
 	public int position(TPoint p)
 	{
-		if (points.size() == 0)
+		if (size() == 0)
 			return -1;
 		
 		int i;
@@ -76,7 +76,7 @@ public class TPointArray {
 	
 	public TPoint middle()
 	{
-		if (points == null || points.size() == 0)
+		if (points == null || size() == 0)
 			return null;
 		
 		TPoint result = new TPoint();
@@ -89,7 +89,7 @@ public class TPointArray {
 	
 	public TBox bounds()
 	{
-		if (points == null || points.size() == 0)
+		if (points == null || size() == 0)
 			return null;
 		
 		TBox b = new TBox(points.get(0), points.get(0));
@@ -123,11 +123,12 @@ public class TPointArray {
 	}
 
 	public void rotate(double angle, TPoint point) {
-		if (this.points.size() == 0)
+		if (this.size() == 0)
 			return;
 		
 		for (TPoint p : points)
 			p.rotate(angle, point);
 	}
-
+	
+	
 }
