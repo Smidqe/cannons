@@ -1,5 +1,8 @@
 package application.types;
 import application.types.enums.e_TText;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 /*
 	- TTextDebug
@@ -13,45 +16,69 @@ import application.types.enums.e_TText;
 
 
 */
-
-@SuppressWarnings("unused")
 public class TTextDebug {
 	private int indentation, size;
-	private boolean toFile;
-	private TFile file;
 	
 	public TTextDebug()
 	{
 		this.indentation = 0;
 	}
 	
-	public void setWrite(boolean toFile)
-	{
-		this.toFile = toFile;
-	}
-	
 	public void print(String txt, e_TText method)
 	{
-		
-		
 		if (method == e_TText.HEADER || method == e_TText.SUBSTRING)
 			indentation++;
 		
 		if (method == e_TText.FOOTER)
 			indentation--;
+
+		StringBuilder builder = new StringBuilder();
 		
+		for (int i = 0; i < this.indentation; i++)
+			builder.append("--");
 		
+		switch (method)
+		{
+			case WARNING:
+			{
+				builder.append("WARNING");
+				break;
+			}
+			
+			case ERROR:
+			{
+				builder.append("ERROR");
+				break;
+			}
+			
+			case CRITICAL:
+			{
+				builder.append("CRITICAL");
+				break;
+			}
+			default:
+				break;
+		}
 		
-		
+		System.out.println(builder.append(txt).toString());
 		
 		if (method == e_TText.SUBSTRING)
 			indentation--;
 	}
 	
-	
-	public TFile getFile()
+	public void print(Label label, String txt)
 	{
-		return this.file;
+		label.setText(txt);
+	}
+	
+	public void print(TextArea area, String txt)
+	{
+		area.setText(txt);
+	}
+	
+	public void print(TextField field, String txt)
+	{
+		field.setText(txt);
 	}
 	
 	public int getIndention()

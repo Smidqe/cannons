@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.canvas.*?>
 <?import java.lang.*?>
@@ -13,13 +14,14 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Canvas fx:id="cnv_test" height="373.0" width="473.0" />
                         <Separator layoutX="470.0" orientation="VERTICAL" prefHeight="371.0" prefWidth="11.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="0.0" />
-                        <Button layoutX="473.0" layoutY="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="126.0" text="Draw a sprite" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Button layoutX="473.0" layoutY="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="126.0" text="Rotate a sprite" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" onAction="#open"/>
-                        <Button layoutX="473.0" layoutY="60.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="126.0" text="Animate a sprite" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
+                        <Button layoutX="473.0" layoutY="0.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="126.0" text="Draw a sprite" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onAction="#draw"/>
+                        <Button layoutX="473.0" layoutY="30.0" mnemonicParsing="false" onAction="#open" prefHeight="30.0" prefWidth="126.0" text="Rotate a sprite" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
+                        <Button fx:id="btn_animate" layoutX="473.0" layoutY="60.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="126.0" text="Animate a sprite" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" onAction="#animate"/>
                         <Button layoutX="473.0" layoutY="342.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="126.0" text="Clear" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                        <RadioButton layoutX="476.0" layoutY="313.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="116.0" text="Allow keyboard" />
+                        <RadioButton layoutX="476.0" layoutY="313.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="116.0" text="Allow keyboard" AnchorPane.bottomAnchor="41.0" AnchorPane.rightAnchor="8.0" />
+                        <Canvas fx:id="cnv_test" height="373.0" width="473.0" />
+                        <ImageView fx:id="img_view" fitHeight="150.0" fitWidth="127.0" layoutX="473.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="131.0" AnchorPane.leftAnchor="473.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
                      </children>
                   </AnchorPane>
             </content>

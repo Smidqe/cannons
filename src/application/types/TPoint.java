@@ -25,6 +25,11 @@ public class TPoint extends Point {
 		this.y = Y;
 	}
 	
+	public TPoint(double d, double e) {
+		this.x = (int) d;
+		this.y = (int) e;
+	}
+
 	public void modify(int x, int y)
 	{
 		this.x += x;
@@ -108,10 +113,9 @@ public class TPoint extends Point {
 		this.divide(size, size);
 	}
 
-	public void rotate(double angle, TPoint middle) {
+	public void rotate(double angle, TPoint middle) 
+	{
 		this.x = (int) Math.round(middle.x + Math.cos(angle) * (this.x - middle.x) - Math.sin(angle) * (this.y - middle.y));
 		this.y = (int) Math.round(middle.y + Math.sin(angle) * (this.x - middle.x) + Math.cos(angle) * (this.y - middle.y));
 	}
-	
-	
 }

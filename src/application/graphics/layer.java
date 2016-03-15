@@ -17,26 +17,21 @@ import javafx.scene.canvas.GraphicsContext;
 */
 
 
-public class layer extends Canvas{
+public class layer extends drawing{
 	private String name;
 	private ArrayList<sprite> sprites;
 	private boolean __static;
-	
-	public layer()
+
+	public layer(Canvas canvas)
 	{
-		super();
+		super(canvas);
+		
 		sprites = new ArrayList<sprite>();
 	}
-	
-	public layer(boolean Static)
-	{
-		this();
-		this.__static = Static;
-	}
-	
+
 	public layer(boolean Static, Canvas canvas)
 	{
-		super(canvas.getLayoutX(), canvas.getLayoutY());
+		super(canvas);
 		
 		this.sprites = new ArrayList<sprite>();
 		this.__static = Static;
@@ -54,12 +49,12 @@ public class layer extends Canvas{
 	
 	public void clear()
 	{
-		this.getGraphicsContext2D().clearRect(0, 0, getWidth(), getHeight());
+		context().clearRect(0, 0, canvas().getWidth(), canvas().getHeight());
 	}
 	
 	public void clear(TBox box)
 	{
-		this.getGraphicsContext2D().clearRect(box.getX1(), box.getY1(), box.width(), box.height());
+		context().clearRect(box.getX1(), box.getY1(), box.width(), box.height());
 	}
 	
 	public void setName(String name)
@@ -80,7 +75,7 @@ public class layer extends Canvas{
 		this.clear();
 		
 		for (sprite s : sprites)
-			s.draw();
+			draw(s);
 	}
 	
 	public void refresh(ArrayList<Integer> indexes)
@@ -92,7 +87,7 @@ public class layer extends Canvas{
 			this.clear(sprites.get(i).boundaries());
 		
 		for (int i : indexes)
-			sprites.get(i).draw();
+			draw(sprites.get(i));
 	}
 	
 	public ArrayList<sprite> getSprites()
@@ -102,6 +97,8 @@ public class layer extends Canvas{
 	
 	public sprite getSprite(int index)
 	{
+		//System.out.println("LAYER: Size(sprites): " + sprites.size());
+		
 		if (sprites.size() == 0)
 			return null;
 		
@@ -136,16 +133,24 @@ public class layer extends Canvas{
 		if (this.__static)
 			return;
 		
-		this.toFront();
+		canvas().toFront();
+	}
+	
+	public void draw()
+	{
+		for (sprite s : sprites)
+			draw(s);
+		
+		
 	}
 	
 	public Canvas canvas()
 	{
-		return this.getGraphicsContext2D().getCanvas();
+		return super.canvas();
 	}
 	
 	public GraphicsContext context()
 	{
-		return this.getGraphicsContext2D();
+		return super.context();
 	}
 }

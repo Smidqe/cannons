@@ -21,24 +21,24 @@ public class fx_test_gui_angle implements Initializable {
 	@FXML
 	public void close(ActionEvent event)
 	{
-		if (__graphics.layer_count() == 0)
+		if (__graphics.getLayers().size() == 0)
 			return;
 		
-		System.out.println("Layer count: " + __graphics.layer_count());
+		System.out.println("Layer count: " + __graphics.getLayers().size());
 		
-		if (__graphics.layer(0).getSprites().size() == 0)
+		if (__graphics.get_layer(0).getSprites().size() == 0)
 		{
 			System.out.println("No sprites loaded");
 			return;
 		}
 		if (event.getSource().toString().equals(""))
 			
-			__graphics.layer(0).getSprite(0).setAngle(0);
+			__graphics.get_layer(0).getSprite(0).setRotation(0);
 		else
 		{
 			System.out.println(tf_angle.getText());
 			
-			__graphics.layer(0).getSprite(0).setAngle(Integer.parseInt(tf_angle.getText()));
+			__graphics.get_layer(0).getSprite(0).setRotation(Integer.parseInt(tf_angle.getText()));
 		}
 		return;
 	}

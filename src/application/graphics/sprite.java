@@ -1,11 +1,12 @@
 package application.graphics;
 
+import javafx.scene.image.*;
+
 import application.types.TBox;
 import application.types.TFile;
 import application.types.TPoint;
 //import application.types.TPolygon;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
 
 public class sprite {	
@@ -31,9 +32,15 @@ public class sprite {
 		this.source = file;
 	}
 	
-	public void setImage(Image img)
+	private void init_bounds(Image img)
 	{
-		this.img = img;
+		this.bounds = new TBox(this.getPoint(), new TPoint(this.getPoint().getX() + img.getWidth(), this.getPoint().getY() + img.getHeight()));
+	}
+	
+	public void setImage(Image img2)
+	{
+		this.img = img2;
+		init_bounds(this.img);
 	}
 	
 	public void setName(String name)
@@ -89,23 +96,6 @@ public class sprite {
 		return this.boundaries().overlap(s.boundaries());
 	}
 	
-	public void draw(int x, int y) {
-		if (gc == null)
-			return;
-		
-		this.gc.drawImage(img, x, y);
-	}
-
-	public void draw(TPoint p)
-	{
-		this.draw(p.x, p.y);
-	}
-	
-	public void draw()
-	{
-		this.draw(p.x, p.y);
-	}
-	
 	public double angle()
 	{
 		return angle;
@@ -118,17 +108,6 @@ public class sprite {
 		
 		Rotate r = new Rotate(angle, p.x, p.y);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
-	}
-	
-	public void draw(double angle)
-	{
-		if (gc == null)
-			return;
-		
-		if (angle != 0.0)
-			this.gc.rotate(this.angle = angle);
-	
-		this.draw();
 	}
 
 	public TPoint getPoint() {
@@ -161,5 +140,14 @@ public class sprite {
 	public TFile getFile() {
 		// TODO Auto-generated method stub
 		return this.source;
+	}
+
+	public void setRotation(double angle)
+	{
+		this.angle = angle;
+	}
+	
+	public double getRotation() {
+		return angle;
 	}
 }

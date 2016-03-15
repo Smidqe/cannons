@@ -1,7 +1,7 @@
 package application.game;
 
 import application.settings.*;
-import application.graphics.*;
+//import application.graphics.*;
 
 public class Gameloop {
 	
@@ -46,7 +46,7 @@ public class Gameloop {
 		
 		//variable declarations.
 		boolean __exit = false;
-		graphics __graphics = graphics.instance(); 
+		//graphics __graphics = graphics.instance(); 
 		
 		//the 
 		while (!__exit)

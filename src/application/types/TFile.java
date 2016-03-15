@@ -39,19 +39,11 @@ public class TFile extends File{
 
 	public void set_method(boolean write)
 	{
-		if (this.read && write)
-		{
-			
-			this.read = false;
-			this.write = true;
-		}
+		this.read = !write;
+		this.write = write;
 		
-		if (this.write && !write)
-		{
-			this.write = false;
-			this.read = true;
-		}
-	
+		System.out.println("Write: " + this.write + ", Read: " + this.read);
+		
 		try {
 			if (this.read)
 				__reader = new FileInputStream(this.path);
@@ -85,12 +77,12 @@ public class TFile extends File{
 	
 	public OutputStream output()
 	{
-		return __writer;
+		return (OutputStream) __writer;
 	}
 	
 	public InputStream input()
 	{
-		return __reader;
+		return (InputStream) __reader;
 	}
 	
 	public boolean write(String s, boolean overwrite)
@@ -134,7 +126,65 @@ public class TFile extends File{
 		
 		return lines;
 	}
+	
+	public ArrayList<String> find(String sub)
+	{
+		ArrayList<String> lines = read();
+		ArrayList<String> result = new ArrayList<String>();
+		
+		for (String line : lines)
+			if (line.contains(sub))
+				result.add(line);
+		
+		return result;
+	}
+	
+	private ArrayList<Integer> sections()
+	{
+		ArrayList<String> lines = read();
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		
+		for (int index = 0; index < lines.size(); index++)
+		{
+			if (lines.get(index).startsWith("[") && lines.get(index).endsWith("]"))
+				result.add(index);
+		}
+		
+		return result;
+	}
+	
+	public String iniRead(String section, String key)
+	{
+		ArrayList<String> lines = read();
+		ArrayList<Integer> sections = sections();
+			
+		int index = -1;
+		for (int i = 0; i < lines.size(); i++)
+			if (lines.get(sections.get(i)).contains(section))
+			{
+				index = sections.get(i);
+				break;
+			}
+		
+		if (index == -1)
+			return null;
+		
+		for (int i = index; i < sections.get(index + 1); i++)
+			if (lines.get(i).contains(key))
+				return lines.get(i).substring(lines.get(i).indexOf('=') + 1, lines.get(i).length() - 1);
+		
+		return null;
+	}
 
+	
+	public String iniWrite(String value, String section, String key)
+	{
+		
+		
+		
+		return null;
+	}
+	
 	public TFile convert(File file)
 	{
 		return new TFile(file.getAbsolutePath());
