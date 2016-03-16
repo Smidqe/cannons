@@ -3,14 +3,25 @@ package application.types;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/*
+ 	TODO:
+ 		- Finalise the methods and clean these functions (perhaps split something to elsewhere?)
+ 		
+ 
+ 
+ 
+ 
+ */
+
 public class TFileSystem {
+	private static TFileSystem __self = new TFileSystem();
 	private ArrayList<TFile> files;
-	private ArrayList<TFile> folders;
+	private ArrayList<TFolder> folders;
 	
 	public TFileSystem()
 	{
 		files = new ArrayList<TFile>();
-		folders = new ArrayList<TFile>();
+		folders = new ArrayList<TFolder>();
 	}
 
 	public boolean add(String filename, boolean directory)
@@ -20,10 +31,7 @@ public class TFileSystem {
 		boolean exists = file.exists();
 	
 		if (exists)
-			if (!directory)
-				files.add(file);
-			else
-				folders.add(file);
+			files.add(file);
 		
 		return exists;
 	}
@@ -33,7 +41,7 @@ public class TFileSystem {
 		return this.files;
 	}
 	
-	public ArrayList<TFile> getFolders()
+	public ArrayList<TFolder> getFolders()
 	{
 		return this.folders;
 	}
@@ -51,25 +59,19 @@ public class TFileSystem {
 			return folders.size() > size ? true : false;
 	}
 	
-	public TFile getFile(int index, boolean directory)
+	public TFile getFile(int index)
 	{
-		if (directory)
-			return folders.get(index);
-		else
-			return files.get(index);
+		return files.get(index);
 	}
 	
-	public ArrayList<TFile> getFiles(int index, boolean directory)
+	public ArrayList<TFile> getFiles(int index)
 	{	
-		if (directory)
-			return getFile(index, directory).convert(getFile(index, directory).listFiles());
-		else
-			return new ArrayList<TFile>(Arrays.asList(getFile(index, directory)));
+		return new ArrayList<TFile>(Arrays.asList(getFile(index)));
 	}
 	
-	public ArrayList<TFile> getFiles(int index, String extension, boolean directory)
+	public ArrayList<TFile> getFiles(int index, String extension)
 	{
-		ArrayList<TFile> files = getFiles(index, directory);
+		ArrayList<TFile> files = getFiles(index);
 		
 		if (files == null || files.size() == 0)
 			return null;
@@ -81,20 +83,8 @@ public class TFileSystem {
 		
 		return filtered;
 	}
-	
-	public int fileCount(int index, boolean folder)
-	{
-		if (!folder)
-			return 1;
-		
-		return this.getFiles(index, folder).size();
-	}
-	
-	public int fileCount(int index, String extension, boolean directory)
-	{
-		if (!directory)
-			return this.files.get(0).getExtension().equals(extension) ? 1 : 0;
-		
-		return getFiles(index, extension, directory).size();
+
+	public static TFileSystem instance() {
+		return __self;
 	}
 }

@@ -1,5 +1,7 @@
 package application.settings;
 import application.graphics.*;
+import application.types.TFileSystem;
+
 import java.util.ArrayList;
 
 
@@ -21,17 +23,10 @@ public class setup {
 	{
 		if (path_sprites == null || path_sprites.equals(""))
 			return null;
-		
-		/*
-		
-		FileSystem files = new FileSystem();	
-		
-		fileSystem.	
-		
-		for (	
-			
-		
-		*/
+
+		TFileSystem files = TFileSystem.instance();	
+
+
 		return null;
 	}
 	

@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 
 */
 public class TTextDebug {
+	private static TTextDebug __self = new TTextDebug();
 	private int indentation, size;
 	
 	public TTextDebug()
@@ -84,5 +85,9 @@ public class TTextDebug {
 	public int getIndention()
 	{
 		return this.indentation;
+	}
+
+	public static TTextDebug instance() {
+		return __self;
 	}
 }

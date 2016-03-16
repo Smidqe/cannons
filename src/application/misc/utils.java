@@ -11,4 +11,6 @@ public class utils {
 	{
 		return (d >= min && d <= max);
 	}
+	
+	
 }
